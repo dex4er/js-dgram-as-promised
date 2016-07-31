@@ -6,6 +6,12 @@ This library provides promisified version of standard `dgram` class. The API is
 the same except `bind`, `close` and `send` methods which return `Promise`
 object.
 
+### Installation
+
+```shell
+npm install dgram-as-promised
+```
+
 ### Usage
 
 `dgram-as-promised` can be used like standard `dgram` module:
@@ -55,3 +61,9 @@ promise.then(() => {
   console.log('Message has been sent. Socket is closed.')
 })
 ```
+
+### License
+
+Copyright (c) 2016 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+
+[Artistic License 2.0](https://opensource.org/licenses/Artistic-2.0)

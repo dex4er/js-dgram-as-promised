@@ -1,6 +1,6 @@
 {
   "name": "dgram-as-promised",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Promisify dgram module",
   "main": "lib/dgram-as-promised.js",
   "repository": {
