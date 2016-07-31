@@ -26,15 +26,15 @@ t.test('Send datagram', {timeout: TIMEOUT}, function (t) {
     return socket.send(new Buffer('ABCDEFGH'), 0, 8, 41234, address)
   }).then(function () {
     t.pass('socket.send is fulfilled')
-    return socket.send(new Buffer('ABCDEFGH'), 0, 8, 'badport', 'badaddress')
+    return socket.send('', 0, 0, null, null)
   }).catch(function (err) {
-    t.type(err, 'Error', 'socket.send is rejected')
+    t.type(err, 'Error', 'socket.send is rejected: ' + err)
     return socket.close()
   }).then(function () {
     t.pass('socket.close is fulfilled')
     return socket.close()
   }).catch(function (err) {
-    t.type(err, 'Error', 'socket.close is rejected')
+    t.type(err, 'Error', 'socket.close is rejected: ' + err)
     t.end()
   })
 })
