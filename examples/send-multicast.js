@@ -16,7 +16,7 @@ async function main () {
   socket.setBroadcast(true)
   socket.setMulticastTTL(128)
 
-  await socket.addMembership(MEMBERSHIP)
+  socket.addMembership(MEMBERSHIP)
   console.log('Membership is set')
 
   await socket.send(message, 0, message.length, PORT, MEMBERSHIP)

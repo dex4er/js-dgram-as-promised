@@ -31,35 +31,30 @@ Method `bind` returns `Promise` object which is fulfilled when `listening` event
 is emitted.
 
 ```js
-let promise = socket.bind()
+await socket.bind()
+console.log('Socket is listening')
 
-promise = promise.then(() => {
-  socket.setBroadcast(true)
-  socket.setMulticastTTL(128)
-  socket.addMembership(membership)
-})
+socket.setBroadcast(true)
+socket.setMulticastTTL(128)
+
+socket.addMembership(MEMBERSHIP)
+console.log('Membership is set')
 ```
 
 Method `send` returns `Promise` object which is fulfilled when message has been
 sent.
 
 ```js
-promise = promise.then(() => {
-  return socket.send(message, 0, message.length, port, membership)
-})
+await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
+console.log('Message is sent')
 ```
 
 Method `close` returns `Promise` object which is fulfilled when `close` event
 is emitted.
 
 ```js
-promise = promise.then(() => {
-  return socket.close()
-})
-
-promise.then(() => {
-  console.log('Message has been sent. Socket is closed.')
-})
+await socket.close()
+console.log('Socket is closed')
 ```
 
 ### Promise
@@ -77,6 +72,6 @@ const dgramAsPromised = require('dgram-as-promised')
 
 ### License
 
-Copyright (c) 2016 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2016-2017 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
 [Artistic License 2.0](https://opensource.org/licenses/Artistic-2.0)
