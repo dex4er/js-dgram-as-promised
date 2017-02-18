@@ -2,9 +2,12 @@
 
 [![Build Status](https://secure.travis-ci.org/dex4er/js-dgram-as-promised.svg)](http://travis-ci.org/dex4er/js-dgram-as-promised) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-dgram-as-promised/badge.svg)](https://coveralls.io/github/dex4er/js-dgram-as-promised) [![npm](https://img.shields.io/npm/v/dgram-as-promised.svg)](https://www.npmjs.com/package/dgram-as-promised)
 
-This module provides promisified version of standard `dgram` class. The API is
-the same as for standard `dgram`, except `bind`, `close` and `send` methods which
-return `Promise` object.
+This module provides promisified version of standard
+[dgram](https://nodejs.org/api/dgram.html) class. The API is
+the same as for standard `dgram`, except `bind`, `close` and `send` methods
+which return
+[Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+object.
 
 ### Installation
 
@@ -59,11 +62,11 @@ console.log('Socket is closed')
 
 ### Promise
 
-This module uses `any-promise` and any ES6 Promise library or polyfill is
-supported.
+This module uses [any-promise](https://www.npmjs.com/package/any-promise) and
+any ES6 Promise library or polyfill is supported.
 
-Ie. `bluebird` can be used as Promise library for this module, if it is
-registered before.
+Ie. [bluebird](https://www.npmjs.com/package/bluebird) can be used as Promise
+library for this module, if it is registered before.
 
 ```js
 require('any-promise/register/bluebird')
