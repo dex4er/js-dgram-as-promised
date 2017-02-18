@@ -12,7 +12,7 @@
     "dgram"
   ],
   "author": "Piotr Roszatycki",
-  "license": "Artistic-2.0",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/dex4er/js-dgram-as-promised/issues"
   },
