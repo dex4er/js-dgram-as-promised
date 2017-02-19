@@ -1,6 +1,6 @@
 {
   "name": "dgram-as-promised",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Promisify dgram module",
   "main": "lib/dgram-as-promised.js",
   "repository": {
@@ -27,8 +27,8 @@
     "chai": "^3.5.0",
     "nyc": "^10.1.2",
     "standard": "^8.6.0",
-    "tap": "^10.1.2",
-    "tap-given": "^0.1.0"
+    "tap": "^10.2.0",
+    "tap-given": "^0.2.0"
   },
   "scripts": {
     "test": "tap --timeout 20 test/*.js",

@@ -1,5 +1,9 @@
 # Changelog
 
+## v0.1.1 2017-02-19
+
+  * Upgraded tap-given
+
 ## v0.1.0 2017-02-18
 
   * ES6
