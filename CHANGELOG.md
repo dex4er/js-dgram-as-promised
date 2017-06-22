@@ -3,7 +3,7 @@
 ## v0.1.2 2017-06-22
 
   * Upgrade: chai@4.0.2, standard@10.0.2, tap@10.5.1, tap-given@0.4.1
-  * Use snazzy for tests.
+  * Use snazzy and chai-as-promised for tests.
 
 ## v0.1.1 2017-02-19
 

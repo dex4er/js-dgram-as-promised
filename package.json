@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "chai": "^4.0.2",
+    "chai-as-promised": "^7.0.0",
     "snazzy": "^7.0.0",
     "standard": "^10.0.2",
     "tap": "^10.5.1",
@@ -34,6 +35,17 @@
     "test": "standard --verbose | snazzy && tap test/*.js",
     "test-coverage": "npm test -- --coverage",
     "test-onchange-lcovonly": "npm run -s test-coverage -- -R min --coverage-report lcovonly; onchange '**/*.js' -- npm run -s test-coverage -- -R min --coverage-report lcovonly"
+  },
+  "standard": {
+    "globals": [
+      "After",
+      "And",
+      "Feature",
+      "Given",
+      "Scenario",
+      "Then",
+      "When"
+    ]
   },
   "nyc": {
     "exclude": []

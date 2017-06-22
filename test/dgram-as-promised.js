@@ -1,88 +1,91 @@
 'use strict'
 
-/* global Feature, Scenario, Given, When, Then, After */
 const t = require('tap')
 require('tap-given')(t)
-require('chai').should()
+
+const chai = require('chai')
+const chaiAsPromised = require('chai-as-promised')
+chai.should()
+chai.use(chaiAsPromised)
 
 const dgramAsPromised = require('../lib/dgram-as-promised')
 
 Feature('Test dgram-as-promised module', () => {
-  Scenario('Send datagram', function () {
+  Scenario('Send datagram', () => {
+    let address
+    let promise
+    let socket
+
     Given('socket', () => {
-      this.socket = dgramAsPromised.createSocket('udp4')
-      return this.socket
+      socket = dgramAsPromised.createSocket('udp4')
     })
 
     When('socket is bound', () => {
-      return this.socket.bind()
+      return socket.bind().should.be.fulfilled
     })
 
-    When('membership is added', () => {
+    And('membership is added', () => {
       try {
-        this.address = '224.0.0.1'
-        this.socket.setBroadcast(true)
-        this.socket.setMulticastTTL(128)
-        this.socket.addMembership(this.address)
+        address = '224.0.0.1'
+        socket.setBroadcast(true)
+        socket.setMulticastTTL(128)
+        socket.addMembership(address)
       } catch (e) {
-        this.address = '127.0.0.1'
+        address = '127.0.0.1'
       }
     })
 
-    When('correct message is sent', () => {
-      return this.socket.send(new Buffer('ABCDEFGH'), 0, 8, 41234, this.address)
+    And('correct message is sent', () => {
+      return socket.send(Buffer.from('ABCDEFGH'), 0, 8, 41234, address).should.be.fulfilled
     })
 
-    When('socket is closed', () => {
-      return this.socket.close()
+    And('socket is closed', () => {
+      return socket.close().should.be.fulfilled
     })
 
-    When('I try to close again', () => {
-      return this.socket.close()
-      .catch(e => {
-        this.error = e
-      })
+    And('I try to close again', () => {
+      promise = socket.close()
     })
 
     Then("can't be closed again", () => {
-      this.error.should.be.an('Error')
+      return promise.should.be.rejected
     })
   })
 
-  Scenario("Can't send datagram", function () {
+  Scenario("Can't send datagram", () => {
+    let address
+    let promise
+    let socket
+
     Given('socket', () => {
-      this.socket = dgramAsPromised.createSocket('udp4')
-      return this.socket
+      socket = dgramAsPromised.createSocket('udp4')
     })
 
     When('socket is bound', () => {
-      return this.socket.bind()
+      return socket.bind().should.be.fulfilled
     })
 
-    When('membership is added', () => {
+    And('membership is added', () => {
       try {
-        this.address = '224.0.0.1'
-        this.socket.setBroadcast(true)
-        this.socket.setMulticastTTL(128)
-        this.socket.addMembership(this.address)
+        address = '224.0.0.1'
+        socket.setBroadcast(true)
+        socket.setMulticastTTL(128)
+        socket.addMembership(address)
       } catch (e) {
-        this.address = '127.0.0.1'
+        address = '127.0.0.1'
       }
     })
 
-    When('wrong message is sent', () => {
-      return this.socket.send('', 0, 0, null, null)
-      .catch(e => {
-        this.error = e
-      })
+    And('wrong message is sent', () => {
+      promise = socket.send('', 0, 0, null, null)
     })
 
     Then("can't be sent", () => {
-      this.error.should.be.an('Error')
+      return promise.should.be.rejected
     })
 
     After('close the socket', () => {
-      return this.socket.close()
+      return socket.close()
       .catch(e => {})
     })
   })
