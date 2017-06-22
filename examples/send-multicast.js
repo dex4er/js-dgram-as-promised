@@ -7,7 +7,7 @@ const socket = dgramAsPromised.createSocket('udp4')
 const MEMBERSHIP = '224.0.0.1'
 const PORT = 41234
 
-const message = new Buffer('ABCDEFGH')
+const message = Buffer.from('ABCDEFGH')
 
 async function main () {
   await socket.bind()
@@ -26,4 +26,4 @@ async function main () {
   console.log('Socket is closed')
 }
 
-main()
+main().catch(console.error)
