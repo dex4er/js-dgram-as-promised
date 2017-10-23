@@ -1,6 +1,15 @@
+*-ts.js
+
 *.tgz
+
+ts-node-*
 
 /coverage/
 /node_modules/
 
 /.nyc_output/
+
+/.tags
+/.tern-project
+
+/package-lock.json
