@@ -1,0 +1,11 @@
+{
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-standard"
+  ],
+  "rules": {
+    "max-line-length": false,
+    "no-console": [true, "log"],
+    "no-unused-variable": false
+  }
+}
