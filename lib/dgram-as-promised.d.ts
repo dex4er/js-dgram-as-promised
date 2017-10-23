@@ -1,11 +1,12 @@
-import { AddressInfo, RemoteInfo, Socket, SocketOptions, SocketType } from 'dgram'
+import { AddressInfo, BindOptions, RemoteInfo, Socket, SocketOptions, SocketType } from 'dgram'
 
 export class SocketAsPromised {
   socket: Socket
 
   constructor (socket: Socket)
 
-  bind (): Promise<AddressInfo>
+  bind (port?: number, address?: string): Promise<AddressInfo>
+  bind (options: BindOptions): Promise<AddressInfo>
 
   addMembership (multicastAddress: string, multicastInterface?: string): void
 
