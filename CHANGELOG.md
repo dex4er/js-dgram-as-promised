@@ -2,6 +2,7 @@
 
 ## v1.0.0 2017-10-23
 
+  * Do not use `any-promise`.
   * Typescript typings.
 
 ## v0.1.2 2017-06-22
