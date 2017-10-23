@@ -6,6 +6,7 @@
   * `bind` method accepts address and port options and resolves to address info.
   * `send` method resolves to number of sent bytes.
   * The rest of `dgram` methods have been implemented.
+  * For Node < 6 `--harmony` flag is required.
   * Typescript typings.
 
 ## v0.1.2 2017-06-22
