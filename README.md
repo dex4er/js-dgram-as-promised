@@ -17,7 +17,9 @@ npm install dgram-as-promised
 
 ### Usage
 
-`dgram-as-promised` can be used like standard `dgram` module:
+`dgram-as-promised` can be used like standard `dgram` module.
+
+_Example:_
 
 ```js
 const dgramAsPromised = require('dgram-as-promised')
@@ -30,12 +32,20 @@ const port = 41234
 const message = new Buffer('ABCDEFGH')
 ```
 
-Method `bind` returns `Promise` object which is fulfilled when `listening` event
-is emitted.
+_Typescript:_
 
 ```js
-await socket.bind()
-console.log('Socket is listening')
+import * as dgramAsPromised from 'dgram-as-promised'
+
+const socket = dgramAsPromised.createSocket('udp4')
+```
+
+Method `bind` returns `Promise` object which resolves to address info when
+`listening` event is emitted.
+
+```js
+const address = await socket.bind()
+console.log(`Socket is listening on ${address.address}:${address.port}`)
 
 socket.setBroadcast(true)
 socket.setMulticastTTL(128)
@@ -48,29 +58,16 @@ Method `send` returns `Promise` object which is fulfilled when message has been
 sent.
 
 ```js
-await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
-console.log('Message is sent')
+const bytes = await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
+console.log(`Message is sent (${bytes} bytes)`)
 ```
 
-Method `close` returns `Promise` object which is fulfilled when `close` event
-is emitted.
+Method `close` returns `Promise` object which resolves to number of bytes sent
+when `close` event is emitted.
 
 ```js
 await socket.close()
 console.log('Socket is closed')
-```
-
-### Promise
-
-This module uses [any-promise](https://www.npmjs.com/package/any-promise) and
-any ES6 Promise library or polyfill is supported.
-
-Ie. [bluebird](https://www.npmjs.com/package/bluebird) can be used as Promise
-library for this module, if it is registered before.
-
-```js
-require('any-promise/register/bluebird')
-const dgramAsPromised = require('dgram-as-promised')
 ```
 
 ### License

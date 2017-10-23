@@ -3,6 +3,7 @@
 ## v1.0.0 2017-10-23
 
   * Do not use `any-promise`.
+  * `bind` method resolves to address info.
   * `send` method resolves to number of sent bytes.
   * Typescript typings.
 
