@@ -36,7 +36,7 @@ Feature('Test dgram-as-promised module', () => {
     })
 
     And('correct message is sent', () => {
-      return socket.send(Buffer.from('ABCDEFGH'), 0, 8, 41234, address).should.be.fulfilled
+      return socket.send(Buffer.from('ABCDEFGH'), 0, 8, 41234, address).should.eventually.be.equal(8)
     })
 
     And('socket is closed', () => {
