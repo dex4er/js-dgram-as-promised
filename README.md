@@ -9,6 +9,10 @@ which return
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 object.
 
+### Requirements
+
+This module requires ES6 with Node >= 4. For Node < 5 `--harmony` flag is required.
+
 ### Installation
 
 ```shell

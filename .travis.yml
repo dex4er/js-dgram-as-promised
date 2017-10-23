@@ -18,10 +18,12 @@ matrix:
 
     - node_js: "5"
       env:
+        - TAP_ARGS=--strict
         - TAP_RCFILE=./.taprc
 
     - node_js: "4"
       env:
+        - TAP_ARGS="--strict --harmony"
         - TAP_RCFILE=./.taprc
 
 install:
