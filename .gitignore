@@ -1,5 +1,6 @@
 *-ts.js
 
+*.log
 *.tgz
 
 ts-node-*
@@ -13,3 +14,4 @@ ts-node-*
 /.tern-project
 
 /package-lock.json
+/yarn.lock

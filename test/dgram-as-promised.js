@@ -21,7 +21,7 @@ Feature('Test dgram-as-promised module', () => {
     })
 
     When('socket is bound', () => {
-      return socket.bind().should.eventually.have.property('address')
+      return socket.bind({ port: 0 }).should.eventually.have.property('address')
     })
 
     And('membership is added', () => {

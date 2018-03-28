@@ -76,6 +76,6 @@ console.log('Socket is closed')
 
 ### License
 
-Copyright (c) 2016-2017 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2016-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)
