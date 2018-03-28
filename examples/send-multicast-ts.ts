@@ -1,4 +1,4 @@
-import * as dgramAsPromised from '../lib/dgram-as-promised'
+import dgramAsPromised from '../lib/dgram-as-promised'
 
 const MEMBERSHIP = '224.0.0.1'
 const PORT = 41234
@@ -8,7 +8,7 @@ const message = Buffer.from('ABCDEFGH')
 async function main () {
   const socket = dgramAsPromised.createSocket('udp4')
 
-  const address = await socket.bind()
+  const address = await socket.bind({ port: 0 })
   console.info(`Socket is listening on ${address.address}:${address.port}`)
 
   socket.setBroadcast(true)

@@ -10,7 +10,7 @@ const PORT = 41234
 const message = Buffer.from('ABCDEFGH')
 
 async function main () {
-  await socket.bind()
+  await socket.bind({ port: 0 })
   console.log('Socket is listening')
 
   socket.setBroadcast(true)
