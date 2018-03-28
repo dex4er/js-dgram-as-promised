@@ -35,7 +35,7 @@ const socket = dgramAsPromised.createSocket('udp4')
 const membership = '224.0.0.1'
 const port = 41234
 
-const message = new Buffer('ABCDEFGH')
+const message = Buffer.from('ABCDEFGH')
 ```
 
 _Typescript:_
