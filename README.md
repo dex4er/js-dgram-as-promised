@@ -1,6 +1,8 @@
-## dgram-as-promised
+# dgram-as-promised
 
+<!-- markdownlint-disable MD013 -->
 [![Build Status](https://secure.travis-ci.org/dex4er/js-dgram-as-promised.svg)](http://travis-ci.org/dex4er/js-dgram-as-promised) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-dgram-as-promised/badge.svg)](https://coveralls.io/github/dex4er/js-dgram-as-promised) [![npm](https://img.shields.io/npm/v/dgram-as-promised.svg)](https://www.npmjs.com/package/dgram-as-promised)
+<!-- markdownlint-enable MD013 -->
 
 This module provides promisified version of standard
 [dgram](https://nodejs.org/api/dgram.html) class. The API is
@@ -9,17 +11,17 @@ which return
 [Promise](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 object.
 
-### Requirements
+## Requirements
 
 This module requires ES6 with Node >= 4. For Node < 6 `--harmony` flag is required.
 
-### Installation
+## Installation
 
 ```shell
 npm install dgram-as-promised
 ```
 
-### Usage
+## Usage
 
 `dgram-as-promised` can be used like standard `dgram` module.
 
@@ -74,8 +76,8 @@ await socket.close()
 console.log('Socket is closed')
 ```
 
-### License
+## License
 
-Copyright (c) 2016-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2016-2018 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)
