@@ -32,8 +32,8 @@ const dgramAsPromised = require('dgram-as-promised')
 
 const socket = dgramAsPromised.createSocket('udp4')
 
-const membership = '224.0.0.1'
-const port = 41234
+const MEMBERSHIP = '224.0.0.1'
+const PORT = 41234
 
 const message = Buffer.from('ABCDEFGH')
 ```
