@@ -86,7 +86,7 @@ Feature('Test dgram-as-promised module', () => {
 
     After('close the socket', () => {
       return socket.close()
-      .catch(e => {})
+        .catch(e => { })
     })
   })
 })
