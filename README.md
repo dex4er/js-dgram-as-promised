@@ -40,8 +40,8 @@ const message = new Buffer('ABCDEFGH')
 
 _Typescript:_
 
-```js
-import * as dgramAsPromised from 'dgram-as-promised'
+```ts
+import dgramAsPromised from 'dgram-as-promised'
 
 const socket = dgramAsPromised.createSocket('udp4')
 ```
