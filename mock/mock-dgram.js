@@ -8,7 +8,7 @@ class Socket extends EventEmmiter {
     this._closed = false
   }
 
-  addMembership (multicastAddress, multicastInterface) {}
+  addMembership (_multicastAddress, _multicastInterface) {}
 
   address () {
     return {
@@ -34,7 +34,7 @@ class Socket extends EventEmmiter {
     }
   }
 
-  send (msg, offset, length, port, address, callback) {
+  send (msg, _offset, length, _port, _address, callback) {
     if (!msg) {
       throw new Error('wrong message')
     } else {
