@@ -8,6 +8,10 @@ const chaiAsPromised = require('chai-as-promised')
 chai.should()
 chai.use(chaiAsPromised)
 
+const mock = require('mock-require')
+const mockDgram = require('../mock/mock-dgram')
+mock('dgram', mockDgram)
+
 const dgramAsPromised = require('../lib/dgram-as-promised')
 
 Feature('Test dgram-as-promised module', () => {
@@ -25,14 +29,10 @@ Feature('Test dgram-as-promised module', () => {
     })
 
     And('membership is added', () => {
-      try {
-        address = '224.0.0.1'
-        socket.setBroadcast(true)
-        socket.setMulticastTTL(128)
-        socket.addMembership(address)
-      } catch (e) {
-        address = '127.0.0.1'
-      }
+      address = '224.0.0.1'
+      socket.setBroadcast(true)
+      socket.setMulticastTTL(128)
+      socket.addMembership(address)
     })
 
     And('correct message is sent', () => {
@@ -66,14 +66,10 @@ Feature('Test dgram-as-promised module', () => {
     })
 
     And('membership is added', () => {
-      try {
-        address = '224.0.0.1'
-        socket.setBroadcast(true)
-        socket.setMulticastTTL(128)
-        socket.addMembership(address)
-      } catch (e) {
-        address = '127.0.0.1'
-      }
+      address = '224.0.0.1'
+      socket.setBroadcast(true)
+      socket.setMulticastTTL(128)
+      socket.addMembership(address)
     })
 
     And('wrong message is sent', () => {

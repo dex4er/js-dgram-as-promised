@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.3 2018-04-03
+
+* Use `mock-require` and mocked `dgram` module for tests.
+
 ## v1.0.2 2018-03-19
 
 * Tweak README file.
