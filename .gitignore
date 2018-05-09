@@ -17,3 +17,4 @@ ts-node-*
 /yarn.lock
 
 .idea
+.vscode
