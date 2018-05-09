@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.4 2018-05-09
+
+* Adapt Typescript typings to Node 10.
+
 ## v1.0.3 2018-04-03
 
 * Use `mock-require` and mocked `dgram` module for tests.
