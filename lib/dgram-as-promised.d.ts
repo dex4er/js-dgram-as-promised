@@ -1,6 +1,7 @@
 /// <reference types="node" />
 
-import { AddressInfo, BindOptions, RemoteInfo, Socket, SocketOptions, SocketType } from 'dgram'
+import { BindOptions, RemoteInfo, Socket, SocketOptions, SocketType } from 'dgram'
+import { AddressInfo } from 'net'
 
 export class SocketAsPromised {
   socket: Socket

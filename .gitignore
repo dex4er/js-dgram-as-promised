@@ -15,3 +15,5 @@ ts-node-*
 
 /package-lock.json
 /yarn.lock
+
+.idea
