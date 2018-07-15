@@ -5,7 +5,6 @@
   ],
   "rules": {
     "max-line-length": false,
-    "no-console": [true, "log"],
-    "no-unused-variable": false
+    "no-console": [true, "log"]
   }
 }

@@ -2,10 +2,10 @@
   "compilerOptions": {
     "esModuleInterop": true,
     "module": "commonjs",
-    "noImplicitReturns": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
     "strict": true,
+    "strictNullChecks": true,
     "target": "ES2017"
   }
 }

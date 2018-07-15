@@ -1,6 +1,6 @@
 {
   "name": "dgram-as-promised",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Promisify dgram module",
   "main": "lib/dgram-as-promised.js",
   "typings": "lib/dgram-as-promised.d.ts",
@@ -26,6 +26,12 @@
     "@types/node": "^9.6.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "eslint": "^5.1.0",
+    "eslint-config-standard": "^12.0.0-alpha.0",
+    "eslint-plugin-import": "^2.13.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.8.0",
+    "eslint-plugin-standard": "^3.1.0",
     "markdownlint-cli": "^0.8.1",
     "mock-require": "^3.0.2",
     "snazzy": "^7.1.1",
@@ -37,8 +43,9 @@
     "typescript": "^2.8.1"
   },
   "scripts": {
-    "pretest": "standard --verbose | snazzy && tsc --noEmit --pretty && tslint -t stylish -p . && markdownlint *.md",
-    "test": "tap test/*.js",
+    "pretest": "eslint . && tsc --noEmit --pretty && tslint -t stylish -p . && echo markdownlint *.md",
+    "test": "npm run test:api",
+    "test:api": "tap test/*.js",
     "test:coverage": "npm test -- --coverage"
   },
   "standard": {

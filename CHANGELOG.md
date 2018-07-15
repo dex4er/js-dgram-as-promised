@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.5 2018-07-15
+
+* npm audit clean
+
 ## v1.0.4 2018-05-09
 
 * Adapt Typescript typings to Node 10.
