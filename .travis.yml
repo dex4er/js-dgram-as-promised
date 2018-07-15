@@ -15,9 +15,9 @@ matrix:
     - node_js: "7"
     - node_js: "6"
     - node_js: "5"
-      env: TAP_ARGS=--strict
+      env: TAP_ARGS="--harmony --strict"
     - node_js: "4"
-      env: TAP_ARGS=--strict
+      env: TAP_ARGS="--harmony --strict"
 
 install:
   - npm install
