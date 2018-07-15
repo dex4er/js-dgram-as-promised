@@ -21,6 +21,12 @@ This module requires ES6 with Node >= 4. For Node < 6 `--harmony` flag is requir
 npm install dgram-as-promised
 ```
 
+_Additionally for Typescript:_
+
+```shell
+npm install -D @types/node
+```
+
 ## Usage
 
 `dgram-as-promised` can be used like standard `dgram` module.
