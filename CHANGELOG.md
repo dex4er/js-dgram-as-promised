@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.6 2018-07-15
+
+* jsdoc
+
 ## v1.0.5 2018-07-15
 
 * npm audit clean
