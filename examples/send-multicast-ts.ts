@@ -1,11 +1,11 @@
-import dgramAsPromised from '../lib/dgram-as-promised'
+import dgramAsPromised from '../src/dgram-as-promised'
 
 const MEMBERSHIP = '224.0.0.1'
 const PORT = 41234
 
 const message = Buffer.from('ABCDEFGH')
 
-async function main () {
+async function main (): Promise<void> {
   const socket = dgramAsPromised.createSocket('udp4')
 
   const address = await socket.bind({ port: 0 })

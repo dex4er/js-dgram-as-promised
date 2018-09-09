@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.0.0 2018-09-09
+
+* Rewritten in Typescript.
+* Requires Node >= 6.
+* Additional `dgram` option for `createSocket`.
+
 ## v1.0.6 2018-07-15
 
 * jsdoc

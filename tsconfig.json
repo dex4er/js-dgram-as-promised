@@ -1,11 +1,26 @@
 {
   "compilerOptions": {
+    "declaration": true,
     "esModuleInterop": true,
+    "importHelpers": true,
+    "lib": [
+      "es6"
+    ],
     "module": "commonjs",
     "noImplicitAny": true,
-    "noImplicitThis": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "./lib",
+    "target": "es6",
     "strict": true,
-    "strictNullChecks": true,
-    "target": "ES2017"
-  }
+    "typeRoots": [
+      "node_modules/@types"
+    ]
+  },
+  "exclude": [
+    "./examples/**/*",
+    "./lib/**/*",
+    "./test/**/*"
+  ]
 }

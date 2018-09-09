@@ -13,7 +13,7 @@ object.
 
 ## Requirements
 
-This module requires ES6 with Node >= 4. For Node < 6 `--harmony` flag is required.
+This module requires ES6 with Node >= 6.
 
 ## Installation
 

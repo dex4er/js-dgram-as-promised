@@ -1,9 +1,13 @@
 *-ts.js
 
-*.log
+*.gz
 *.tgz
+*.log
 
 ts-node-*
+
+/lib/
+/test/mocha.opts
 
 /coverage/
 /node_modules/
@@ -16,6 +20,7 @@ ts-node-*
 
 /package-lock.json
 /yarn.lock
+/yarn-error.log
 
-.idea
-.vscode
+/.idea
+/.vscode
