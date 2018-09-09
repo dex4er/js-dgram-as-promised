@@ -21,7 +21,9 @@
   "engines": {
     "node": ">=6.0.0"
   },
-  "dependencies": {},
+  "dependencies": {
+    "tslib": "^1.9.3"
+  },
   "devDependencies": {
     "@types/chai": "^4.1.4",
     "@types/chai-as-promised": "^7.1.0",
