@@ -27,6 +27,18 @@ _Additionally for Typescript:_
 npm install -D @types/node
 ```
 
+Transpiling this module with own settings in `tsconfig.json`:
+
+```json
+{
+  "compilerOptions": {
+    "paths": {
+      "dgram-as-promised": ["node_modules/dgram-as-promised/src/dgram-as-promised"]
+    }
+  }
+}
+```
+
 ## Usage
 
 `dgram-as-promised` can be used like standard `dgram` module.
