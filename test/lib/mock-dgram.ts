@@ -1,31 +1,31 @@
-import { BindOptions, RemoteInfo, SocketOptions } from 'dgram'
-import { EventEmitter } from 'events'
-import { AddressInfo } from 'net'
+import {BindOptions, RemoteInfo, SocketOptions} from 'dgram'
+import {EventEmitter} from 'events'
+import {AddressInfo} from 'net'
 
 class Socket extends EventEmitter {
   _closed = false
 
-  constructor () {
+  constructor() {
     super()
   }
 
-  addMembership (_multicastAddress: string, _multicastInterface?: string): void {
+  addMembership(_multicastAddress: string, _multicastInterface?: string): void {
     // nothing
   }
 
-  address (): AddressInfo {
+  address(): AddressInfo {
     return {
       address: '127.0.0.1',
       port: 12345,
-      family: 'udp4'
+      family: 'udp4',
     }
   }
 
-  bind (port?: number, callback?: () => void): void
-  bind (callback?: () => void): void
-  bind (options: BindOptions, callback?: Function): void
+  bind(port?: number, callback?: () => void): void
+  bind(callback?: () => void): void
+  bind(options: BindOptions, callback?: () => void): void
 
-  bind (options?: any, callback?: () => void): void {
+  bind(options?: any, callback?: () => void): void {
     if (typeof options === 'function') {
       callback = options
     }
@@ -34,7 +34,7 @@ class Socket extends EventEmitter {
     }
   }
 
-  close (callback?: () => void): void {
+  close(callback?: () => void): void {
     if (this._closed) {
       throw new Error('already closed')
     } else {
@@ -46,7 +46,14 @@ class Socket extends EventEmitter {
     }
   }
 
-  send (msg: Buffer | string | Uint8Array, _offset: number, length: number, _port: number, _address?: string, callback?: (error: Error | null, bytes: number) => void): void {
+  send(
+    msg: Buffer | string | Uint8Array,
+    _offset: number,
+    length: number,
+    _port: number,
+    _address?: string,
+    callback?: (error: Error | null, bytes: number) => void,
+  ): void {
     if (!msg) {
       throw new Error('wrong message')
     } else {
@@ -56,22 +63,22 @@ class Socket extends EventEmitter {
     }
   }
 
-  setBroadcast (_flag: boolean): void {
+  setBroadcast(_flag: boolean): void {
     // nothing
   }
 
-  setMulticastTTL (_ttl: number): void {
+  setMulticastTTL(_ttl: number): void {
     // nothing
   }
 }
 
-function createSocket (_options: SocketOptions, _callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket {
+function createSocket(_options: SocketOptions, _callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket {
   return new Socket()
 }
 
 const mockDgram = {
   Socket,
-  createSocket
+  createSocket,
 }
 
 export = mockDgram

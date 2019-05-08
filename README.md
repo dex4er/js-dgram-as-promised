@@ -32,23 +32,30 @@ Transpiling this module with own settings in `tsconfig.json`:
 ```json
 {
   "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
     "paths": {
       "dgram-as-promised": ["node_modules/dgram-as-promised/src/dgram-as-promised"]
-    }
-  }
+    },
+    "strict": true
+  },
+  "include": [
+    "*.ts",
+    "node_modules/dgram-as-promised/src/*.ts"
+  ]
 }
 ```
 
 ## Usage
 
-`dgram-as-promised` can be used like standard `dgram` module.
+`dgram-as-promised` can be used similar to standard `dgram` module.
 
 _Example:_
 
 ```js
-const dgramAsPromised = require('dgram-as-promised')
+const {DgramAsPromised} = require('dgram-as-promised')
 
-const socket = dgramAsPromised.createSocket('udp4')
+const socket = DgramAsPromised.createSocket('udp4')
 
 const MEMBERSHIP = '224.0.0.1'
 const PORT = 41234
@@ -59,9 +66,9 @@ const message = Buffer.from('ABCDEFGH')
 _Typescript:_
 
 ```ts
-import dgramAsPromised from 'dgram-as-promised'
+import DgramAsPromised from 'dgram-as-promised'
 
-const socket = dgramAsPromised.createSocket('udp4')
+const socket = DgramAsPromised.createSocket('udp4')
 ```
 
 Method `bind` returns `Promise` object which resolves to address info when
@@ -96,6 +103,6 @@ console.log('Socket is closed')
 
 ## License
 
-Copyright (c) 2016-2018 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
+Copyright (c) 2016-2019 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

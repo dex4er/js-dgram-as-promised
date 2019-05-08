@@ -1,6 +1,6 @@
-import { After, And, Feature, Given, Scenario, Then, When } from './lib/steps'
+import {After, And, Feature, Given, Scenario, Then, When} from './lib/steps'
 
-import dgramAsPromised, { SocketAsPromised } from '../src/dgram-as-promised'
+import dgramAsPromised, {SocketAsPromised} from '../src/dgram-as-promised'
 
 import mockDgram from './lib/mock-dgram'
 
@@ -11,11 +11,11 @@ Feature('Test dgram-as-promised module', () => {
     let socket: SocketAsPromised
 
     Given('socket', () => {
-      socket = dgramAsPromised.createSocket({ type: 'udp4', dgram: mockDgram as any })
+      socket = dgramAsPromised.createSocket({type: 'udp4', dgram: mockDgram as any})
     })
 
     When('socket is bound', () => {
-      return socket.bind({ port: 0 }).should.eventually.have.property('address')
+      return socket.bind({port: 0}).should.eventually.have.property('address')
     })
 
     And('membership is added', () => {
@@ -52,7 +52,7 @@ Feature('Test dgram-as-promised module', () => {
     let socket: SocketAsPromised
 
     Given('socket', () => {
-      socket = dgramAsPromised.createSocket({ type: 'udp4', dgram: mockDgram as any })
+      socket = dgramAsPromised.createSocket({type: 'udp4', dgram: mockDgram as any})
     })
 
     When('socket is bound', async () => {

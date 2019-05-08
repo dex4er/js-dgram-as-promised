@@ -1,8 +1,8 @@
 *-ts.js
 
 *.gz
-*.tgz
 *.log
+*.tgz
 
 ts-node-*
 
@@ -22,5 +22,6 @@ ts-node-*
 /yarn.lock
 /yarn-error.log
 
+.DS_Store
 /.idea
 /.vscode
