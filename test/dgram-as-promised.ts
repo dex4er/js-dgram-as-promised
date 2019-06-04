@@ -1,3 +1,8 @@
+import chai, {expect} from "chai"
+
+import chaiAsPromised from "chai-as-promised"
+chai.use(chaiAsPromised)
+
 import {After, And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import dgramAsPromised, {SocketAsPromised} from "../src/dgram-as-promised"
@@ -14,8 +19,8 @@ Feature("Test dgram-as-promised module", () => {
       socket = dgramAsPromised.createSocket({type: "udp4", dgram: mockDgram as any})
     })
 
-    When("socket is bound", () => {
-      return socket.bind({port: 0}).should.eventually.have.property("address")
+    When("socket is bound", async () => {
+      await expect(socket.bind({port: 0})).eventually.to.have.property("address")
     })
 
     And("membership is added", () => {
@@ -26,11 +31,11 @@ Feature("Test dgram-as-promised module", () => {
     })
 
     And("correct message is sent", async () => {
-      await socket.send(Buffer.from("ABCDEFGH"), 0, 8, 41234, address).should.eventually.be.equal(8)
+      await expect(socket.send(Buffer.from("ABCDEFGH"), 0, 8, 41234, address)).eventually.to.be.equal(8)
     })
 
     And("socket is closed", async () => {
-      await socket.close().should.be.fulfilled
+      await expect(socket.close()).to.be.fulfilled
     })
 
     And("I try to close again", async () => {
@@ -42,7 +47,7 @@ Feature("Test dgram-as-promised module", () => {
     })
 
     Then("can't be closed again", () => {
-      return error.should.be.an("Error")
+      expect(error).to.be.an("Error")
     })
   })
 
@@ -56,7 +61,7 @@ Feature("Test dgram-as-promised module", () => {
     })
 
     When("socket is bound", async () => {
-      await socket.bind().should.eventually.have.property("address")
+      await expect(socket.bind()).eventually.to.have.property("address")
     })
 
     And("membership is added", () => {
@@ -75,7 +80,7 @@ Feature("Test dgram-as-promised module", () => {
     })
 
     Then("can't be sent", () => {
-      return error.should.be.an("Error")
+      expect(error).to.be.an("Error")
     })
 
     After(async () => {
