@@ -1,1 +1,1 @@
-module.exports = require('./lib/dgram-as-promised')
+module.exports = require("./lib/dgram-as-promised")

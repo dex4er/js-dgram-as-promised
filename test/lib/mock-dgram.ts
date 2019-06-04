@@ -1,6 +1,6 @@
-import {BindOptions, RemoteInfo, SocketOptions} from 'dgram'
-import {EventEmitter} from 'events'
-import {AddressInfo} from 'net'
+import {BindOptions, RemoteInfo, SocketOptions} from "dgram"
+import {EventEmitter} from "events"
+import {AddressInfo} from "net"
 
 class Socket extends EventEmitter {
   _closed = false
@@ -15,9 +15,9 @@ class Socket extends EventEmitter {
 
   address(): AddressInfo {
     return {
-      address: '127.0.0.1',
+      address: "127.0.0.1",
       port: 12345,
-      family: 'udp4',
+      family: "udp4",
     }
   }
 
@@ -26,7 +26,7 @@ class Socket extends EventEmitter {
   bind(options: BindOptions, callback?: () => void): void
 
   bind(options?: any, callback?: () => void): void {
-    if (typeof options === 'function') {
+    if (typeof options === "function") {
       callback = options
     }
     if (callback) {
@@ -36,9 +36,9 @@ class Socket extends EventEmitter {
 
   close(callback?: () => void): void {
     if (this._closed) {
-      throw new Error('already closed')
+      throw new Error("already closed")
     } else {
-      this.emit('close')
+      this.emit("close")
       this._closed = true
     }
     if (callback) {
@@ -55,7 +55,7 @@ class Socket extends EventEmitter {
     callback?: (error: Error | null, bytes: number) => void,
   ): void {
     if (!msg) {
-      throw new Error('wrong message')
+      throw new Error("wrong message")
     } else {
       if (callback) {
         callback(null, length)

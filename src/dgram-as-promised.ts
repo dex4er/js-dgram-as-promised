@@ -1,11 +1,11 @@
 /// <reference types="node" />
 
-import dgram, {RemoteInfo, SocketType} from 'dgram'
-import {SocketAsPromised, SocketAsPromisedOptions} from './socket-as-promised'
+import dgram, {RemoteInfo, SocketType} from "dgram"
+import {SocketAsPromised, SocketAsPromisedOptions} from "./socket-as-promised"
 
-export {BindOptions, RemoteInfo, Socket, SocketOptions, SocketType} from 'dgram'
-export {AddressInfo} from 'net'
-export {SocketAsPromised, SocketAsPromisedOptions} from './socket-as-promised'
+export {BindOptions, RemoteInfo, Socket, SocketOptions, SocketType} from "dgram"
+export {AddressInfo} from "net"
+export {SocketAsPromised, SocketAsPromisedOptions} from "./socket-as-promised"
 
 export class DgramAsPromised {
   static createSocket(type: SocketType, callback?: (msg: Buffer, rinfo: RemoteInfo) => void): SocketAsPromised
@@ -18,7 +18,7 @@ export class DgramAsPromised {
     options: SocketType | SocketAsPromisedOptions,
     callback?: (msg: Buffer, rinfo: RemoteInfo) => void,
   ): SocketAsPromised {
-    if (typeof options === 'string') {
+    if (typeof options === "string") {
       options = {
         type: options,
       }

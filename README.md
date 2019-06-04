@@ -1,7 +1,9 @@
 # dgram-as-promised
 
 <!-- markdownlint-disable MD013 -->
+
 [![Build Status](https://secure.travis-ci.org/dex4er/js-dgram-as-promised.svg)](http://travis-ci.org/dex4er/js-dgram-as-promised) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-dgram-as-promised/badge.svg)](https://coveralls.io/github/dex4er/js-dgram-as-promised) [![npm](https://img.shields.io/npm/v/dgram-as-promised.svg)](https://www.npmjs.com/package/dgram-as-promised)
+
 <!-- markdownlint-enable MD013 -->
 
 This module provides promisified version of standard
@@ -39,10 +41,7 @@ Transpiling this module with own settings in `tsconfig.json`:
     },
     "strict": true
   },
-  "include": [
-    "*.ts",
-    "node_modules/dgram-as-promised/src/*.ts"
-  ]
+  "include": ["*.ts", "node_modules/dgram-as-promised/src/*.ts"]
 }
 ```
 
@@ -53,22 +52,22 @@ Transpiling this module with own settings in `tsconfig.json`:
 _Example:_
 
 ```js
-const {DgramAsPromised} = require('dgram-as-promised')
+const {DgramAsPromised} = require("dgram-as-promised")
 
-const socket = DgramAsPromised.createSocket('udp4')
+const socket = DgramAsPromised.createSocket("udp4")
 
-const MEMBERSHIP = '224.0.0.1'
+const MEMBERSHIP = "224.0.0.1"
 const PORT = 41234
 
-const message = Buffer.from('ABCDEFGH')
+const message = Buffer.from("ABCDEFGH")
 ```
 
 _Typescript:_
 
 ```ts
-import DgramAsPromised from 'dgram-as-promised'
+import DgramAsPromised from "dgram-as-promised"
 
-const socket = DgramAsPromised.createSocket('udp4')
+const socket = DgramAsPromised.createSocket("udp4")
 ```
 
 Method `bind` returns `Promise` object which resolves to address info when
@@ -82,7 +81,7 @@ socket.setBroadcast(true)
 socket.setMulticastTTL(128)
 
 socket.addMembership(MEMBERSHIP)
-console.log('Membership is set')
+console.log("Membership is set")
 ```
 
 Method `send` returns `Promise` object which is fulfilled when message has been
@@ -98,7 +97,7 @@ when `close` event is emitted.
 
 ```js
 await socket.close()
-console.log('Socket is closed')
+console.log("Socket is closed")
 ```
 
 ## License

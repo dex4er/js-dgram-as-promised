@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import dgram, {BindOptions, Socket, SocketOptions} from 'dgram'
-import {AddressInfo} from 'net'
+import dgram, {BindOptions, Socket, SocketOptions} from "dgram"
+import {AddressInfo} from "net"
 
 export interface SocketAsPromisedOptions extends SocketOptions {
   dgram?: typeof dgram
@@ -36,7 +36,7 @@ export class SocketAsPromised {
   close(): Promise<void> {
     return new Promise((resolve, reject) => {
       try {
-        this.socket.once('close', () => {
+        this.socket.once("close", () => {
           resolve()
         })
         this.socket.close()

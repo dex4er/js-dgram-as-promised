@@ -1,14 +1,14 @@
-'use strict'
+"use strict"
 
-const {DgramAsPromised} = require('../lib/dgram-as-promised')
+const {DgramAsPromised} = require("../lib/dgram-as-promised")
 
-const MEMBERSHIP = '224.0.0.1'
+const MEMBERSHIP = "224.0.0.1"
 const PORT = 41234
 
-const message = Buffer.from('ABCDEFGH')
+const message = Buffer.from("ABCDEFGH")
 
 async function main() {
-  const socket = DgramAsPromised.createSocket('udp4')
+  const socket = DgramAsPromised.createSocket("udp4")
 
   const address = await socket.bind({port: 0})
   console.info(`Socket is listening on ${address.address}:${address.port}`)
@@ -17,13 +17,13 @@ async function main() {
   socket.setMulticastTTL(128)
 
   socket.addMembership(MEMBERSHIP)
-  console.log('Membership is set')
+  console.log("Membership is set")
 
   const sent = await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
   console.info(`Message is sent (${sent} bytes)`)
 
   await socket.close()
-  console.log('Socket is closed')
+  console.log("Socket is closed")
 }
 
 main().catch(console.error)
