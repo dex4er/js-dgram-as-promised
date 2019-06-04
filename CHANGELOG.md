@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.0.1 2019-06-04
+
+- Minor tweaks in README.
+- Added source map to the package.
+
 ## v3.0.0 2019-05-08
 
 - Typings compatible with Node v12.

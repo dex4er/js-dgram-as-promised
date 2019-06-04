@@ -29,22 +29,6 @@ _Additionally for Typescript:_
 npm install -D @types/node
 ```
 
-Transpiling this module with own settings in `tsconfig.json`:
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": ".",
-    "esModuleInterop": true,
-    "paths": {
-      "dgram-as-promised": ["node_modules/dgram-as-promised/src/dgram-as-promised"]
-    },
-    "strict": true
-  },
-  "include": ["*.ts", "node_modules/dgram-as-promised/src/*.ts"]
-}
-```
-
 ## Usage
 
 `dgram-as-promised` can be used similar to standard `dgram` module.
@@ -66,6 +50,8 @@ _Typescript:_
 
 ```ts
 import DgramAsPromised from "dgram-as-promised"
+// or
+import {DgramAsPromised} from "dgram-as-promised"
 
 const socket = DgramAsPromised.createSocket("udp4")
 ```
