@@ -43,7 +43,7 @@
     "prettier": "^1.17.0",
     "shx": "^0.3.2",
     "ts-node": "^8.1.0",
-    "tslint": "^5.16.0",
+    "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.5"
   },
