@@ -40,7 +40,7 @@
     "markdownlint-cli": "^0.15.0",
     "mocha": "^6.1.4",
     "nyc": "^14.1.0",
-    "prettier": "^1.17.0",
+    "prettier": "^1.18.2",
     "shx": "^0.3.2",
     "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
