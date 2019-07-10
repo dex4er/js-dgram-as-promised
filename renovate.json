@@ -1,5 +1,5 @@
 {
-  "extends": ["config:base", "group:monorepos"],
+  "extends": ["config:base", "group:monorepos", "group:testNonMajor"],
   "rangeStrategy": "bump",
   "semanticCommits": false
 }
