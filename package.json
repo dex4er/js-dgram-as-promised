@@ -25,10 +25,10 @@
     "tslib": "^1.10.0"
   },
   "devDependencies": {
-    "@types/chai": "^4.1.7",
-    "@types/chai-as-promised": "^7.1.0",
+    "@types/chai": "^4.2.3",
+    "@types/chai-as-promised": "^7.1.2",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.6.2",
+    "@types/node": "^12.7.9",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "changelog-parser": "^2.8.0",
