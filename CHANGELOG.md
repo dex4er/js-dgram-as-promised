@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.2 2019-10-08
+
+- Use `mocha-steps` and `cross-env` for testing.
+
 ## v3.0.2 2019-07-10
 
 - Updated depencencies.
