@@ -1,7 +1,8 @@
 # Changelog
 
-## v3.1.0 2020-10-13
+## v4.0.0 2020-10-13
 
+- Requires Node >= 10.
 - Uses eslint instead of tslint.
 
 ## v3.0.2 2019-10-08

@@ -9,8 +9,6 @@ jobs:
       env: NPM_AUDIT=yes NPM_PACK=yes NPM_RUN_LINT=yes NYC="nyc --no-clean --reporter=lcov"
     - node_js: "12"
     - node_js: "10"
-    - node_js: "8"
-    - node_js: "6"
 
 install:
   - set -e
