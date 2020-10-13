@@ -15,7 +15,7 @@ object.
 
 ## Requirements
 
-This module requires ES6 with Node >= 6.
+This module requires ES6 with Node >= 10.
 
 ## Installation
 
@@ -88,6 +88,6 @@ console.log("Socket is closed")
 
 ## License
 
-Copyright (c) 2016-2019 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
+Copyright (c) 2016-2020 Piotr Roszatycki <mailto:piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)
