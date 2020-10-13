@@ -14,17 +14,33 @@ export class SocketAsPromised {
   bind(options: BindOptions): Promise<AddressInfo>
 
   bind(arg1?: any, arg2?: any): Promise<AddressInfo> {
-    return new Promise(resolve => {
-      if (arg2 !== undefined) {
-        this.socket.bind(arg1, arg2, () => {
-          const address = this.socket.address() as AddressInfo
-          resolve(address)
-        })
-      } else {
-        this.socket.bind(arg1, () => {
-          const address = this.socket.address() as AddressInfo
-          resolve(address)
-        })
+    const socket = this.socket
+
+    return new Promise((resolve, reject) => {
+      const errorHandler = (err: Error) => {
+        removeListeners()
+        reject(err)
+      }
+
+      const listeningHandler = () => {
+        const address = socket.address() as AddressInfo
+        removeListeners()
+        resolve(address)
+      }
+
+      const removeListeners = () => {
+        socket.removeListener("error", errorHandler)
+        socket.removeListener("listening", listeningHandler)
+      }
+
+      socket.on("error", errorHandler)
+      socket.on("listening", listeningHandler)
+
+      try {
+        socket.bind(arg1, arg2)
+      } catch (e) {
+        removeListeners()
+        reject(e)
       }
     })
   }

@@ -26,12 +26,20 @@ class Socket extends EventEmitter {
   bind(options: BindOptions, callback?: () => void): void
 
   bind(options?: any, callback?: () => void): void {
+    if (typeof options === "object" && options.address === "rejection") {
+      this.emit("error", new Error(options))
+      return
+    }
+    if (typeof options === "object" && options.address === "exception") {
+      throw new Error(options)
+    }
     if (typeof options === "function") {
       callback = options
     }
     if (callback) {
-      callback()
+      this.on("listening", callback)
     }
+    this.emit("listening")
   }
 
   close(callback?: () => void): void {

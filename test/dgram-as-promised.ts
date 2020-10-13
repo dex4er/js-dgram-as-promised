@@ -51,6 +51,60 @@ Feature("Test dgram-as-promised module", () => {
     })
   })
 
+  Scenario("Can't bind with rejection", () => {
+    let error: Error
+    let socket: SocketAsPromised
+
+    Given("socket", () => {
+      socket = dgramAsPromised.createSocket({type: "udp4", dgram: mockDgram as any})
+    })
+
+    When("bind operation is rejected", async () => {
+      await socket.bind({address: "exception"}).catch(err => {
+        error = err
+      })
+    })
+
+    Then("error is occured", () => {
+      expect(error).to.be.an("Error")
+    })
+
+    After(async () => {
+      try {
+        await socket.close()
+      } catch (e) {
+        // ignore
+      }
+    })
+  })
+
+  Scenario("Can't bind with exception", () => {
+    let error: Error
+    let socket: SocketAsPromised
+
+    Given("socket", () => {
+      socket = dgramAsPromised.createSocket({type: "udp4", dgram: mockDgram as any})
+    })
+
+    When("bind operation throws exception", async () => {
+      await socket.bind({address: "exception"}).catch(err => {
+        error = err
+      })
+    })
+
+    Then("error is occured", () => {
+      expect(error).to.be.an("Error")
+    })
+
+    After(async () => {
+      try {
+        await socket.close()
+      } catch (e) {
+        // ignore
+      }
+    })
+  })
+
   Scenario("Can't send datagram", () => {
     let address: string
     let error: Error

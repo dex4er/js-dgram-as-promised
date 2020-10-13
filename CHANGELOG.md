@@ -2,6 +2,7 @@
 
 ## v4.0.0 2020-10-13
 
+- `bind` method rejects on error. Fixes #42.
 - Requires Node >= 10.
 - Uses eslint instead of tslint.
 
