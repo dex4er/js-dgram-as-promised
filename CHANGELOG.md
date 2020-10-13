@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.0 2020-10-13
+
+- Uses eslint instead of tslint.
+
 ## v3.0.2 2019-10-08
 
 - Use `mocha-steps` and `cross-env` for testing.

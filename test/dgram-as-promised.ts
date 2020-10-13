@@ -3,9 +3,9 @@ import chai, {expect} from "chai"
 import chaiAsPromised from "chai-as-promised"
 chai.use(chaiAsPromised)
 
-import {After, And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
 import dgramAsPromised, {SocketAsPromised} from "../src/dgram-as-promised"
+
+import {After, And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import mockDgram from "./lib/mock-dgram"
 

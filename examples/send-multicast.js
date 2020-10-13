@@ -17,13 +17,13 @@ async function main() {
   socket.setMulticastTTL(128)
 
   socket.addMembership(MEMBERSHIP)
-  console.log("Membership is set")
+  console.info("Membership is set")
 
   const sent = await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
   console.info(`Message is sent (${sent} bytes)`)
 
   await socket.close()
-  console.log("Socket is closed")
+  console.info("Socket is closed")
 }
 
 main().catch(console.error)
