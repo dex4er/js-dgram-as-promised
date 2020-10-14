@@ -1,14 +1,24 @@
 /// <reference types="node" />
 
-import dgram, {BindOptions, Socket, SocketOptions} from "dgram"
-import {AddressInfo} from "net"
+import dgram from "dgram"
+import type {BindOptions, RemoteInfo, Socket, SocketOptions} from "dgram"
+import type {AddressInfo} from "net"
+
+export interface IncomingPacket {
+  msg: Buffer
+  rinfo: RemoteInfo
+}
 
 export interface SocketAsPromisedOptions extends SocketOptions {
   dgram?: typeof dgram
 }
 
 export class SocketAsPromised {
-  constructor(public readonly socket: Socket) {}
+  _errored?: Error
+
+  constructor(public readonly socket: Socket) {
+    socket.on("error", this.errorHandler)
+  }
 
   bind(port?: number, address?: string): Promise<AddressInfo>
   bind(options: BindOptions): Promise<AddressInfo>
@@ -17,6 +27,12 @@ export class SocketAsPromised {
     const socket = this.socket
 
     return new Promise((resolve, reject) => {
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
+        return reject(err)
+      }
+
       const errorHandler = (err: Error) => {
         removeListeners()
         reject(err)
@@ -51,6 +67,12 @@ export class SocketAsPromised {
 
   close(): Promise<void> {
     return new Promise((resolve, reject) => {
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
+        return reject(err)
+      }
+
       try {
         this.socket.once("close", () => {
           resolve()
@@ -73,6 +95,12 @@ export class SocketAsPromised {
 
   send(arg1: any, arg2: any, arg3: any, arg4?: any, arg5?: any): Promise<number> {
     return new Promise((resolve, reject) => {
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
+        return reject(err)
+      }
+
       try {
         if (arg4 !== undefined) {
           this.socket.send(arg1, arg2, arg3, arg4, arg5, (err, sent) => {
@@ -94,6 +122,36 @@ export class SocketAsPromised {
       } catch (err) {
         reject(err)
       }
+    })
+  }
+
+  recv(): Promise<IncomingPacket> {
+    const socket = this.socket
+
+    return new Promise((resolve, reject) => {
+      if (this._errored) {
+        const err = this._errored
+        this._errored = undefined
+        return reject(err)
+      }
+
+      const errorHandler = (err: Error) => {
+        removeListeners()
+        reject(err)
+      }
+
+      const messageHandler = (msg: Buffer, rinfo: RemoteInfo) => {
+        removeListeners()
+        resolve({msg, rinfo})
+      }
+
+      const removeListeners = () => {
+        socket.removeListener("error", errorHandler)
+        socket.removeListener("message", messageHandler)
+      }
+
+      socket.on("error", errorHandler)
+      socket.on("message", messageHandler)
     })
   }
 
@@ -149,6 +207,10 @@ export class SocketAsPromised {
 
   getSendBufferSize(): number {
     return this.getSendBufferSize()
+  }
+
+  private readonly errorHandler = (err: Error): void => {
+    this._errored = err
   }
 }
 

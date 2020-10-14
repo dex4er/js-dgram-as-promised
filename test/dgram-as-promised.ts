@@ -3,7 +3,7 @@ import chai, {expect} from "chai"
 import chaiAsPromised from "chai-as-promised"
 chai.use(chaiAsPromised)
 
-import dgramAsPromised, {SocketAsPromised} from "../src/dgram-as-promised"
+import dgramAsPromised, {IncomingPacket, SocketAsPromised} from "../src/dgram-as-promised"
 
 import {After, And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
@@ -143,6 +143,45 @@ Feature("Test dgram-as-promised module", () => {
       } catch (e) {
         // ignore
       }
+    })
+  })
+
+  Scenario("Receive datagram", () => {
+    let packet: IncomingPacket
+    let socket: SocketAsPromised
+
+    Given("socket", () => {
+      socket = dgramAsPromised.createSocket({type: "udp4", dgram: mockDgram as any})
+    })
+
+    When("socket is bound", async () => {
+      await expect(socket.bind({port: 0})).eventually.to.have.property("address")
+    })
+
+    And("waits for packet", () => {
+      socket.recv().then(arg => (packet = arg))
+    })
+
+    And("message event is emitted", async () => {
+      socket.socket.emit("message", Buffer.from("ABCDEFGH"), {
+        address: "127.0.0.1",
+        family: "IPv4",
+        port: 1234,
+        size: 8,
+      })
+    })
+
+    Then("packet is received", async () => {
+      expect(packet).to.have.property("msg")
+      expect(packet).to.have.property("rinfo")
+    })
+
+    And("message is correct", async () => {
+      expect(packet.msg.toString()).to.equal("ABCDEFGH")
+    })
+
+    And("rinfo is correct", async () => {
+      expect(packet.rinfo.size).to.equal(8)
     })
   })
 })

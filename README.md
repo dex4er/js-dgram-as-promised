@@ -78,6 +78,15 @@ const bytes = await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
 console.log(`Message is sent (${bytes} bytes)`)
 ```
 
+Method `recv` returns `Promise` object which resolves to the object with `msg`
+and `rinfo` properties as from `message` event.
+
+```js
+const packet = await socket.recv()
+console.log(`Received message: ${packet.msg.toString()}`)
+console.log(`Received ${packet.rinfo.size} bytes`)
+```
+
 Method `close` returns `Promise` object which resolves to number of bytes sent
 when `close` event is emitted.
 
