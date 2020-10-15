@@ -56,6 +56,8 @@ import {DgramAsPromised} from "dgram-as-promised"
 const socket = DgramAsPromised.createSocket("udp4")
 ```
 
+### bind
+
 Method `bind` returns `Promise` object which resolves to address info when
 `listening` event is emitted.
 
@@ -70,6 +72,8 @@ socket.addMembership(MEMBERSHIP)
 console.log("Membership is set")
 ```
 
+### send
+
 Method `send` returns `Promise` object which is fulfilled when message has been
 sent.
 
@@ -78,21 +82,51 @@ const bytes = await socket.send(message, 0, message.length, PORT, MEMBERSHIP)
 console.log(`Message is sent (${bytes} bytes)`)
 ```
 
+### recv
+
 Method `recv` returns `Promise` object which resolves to the object with `msg`
-and `rinfo` properties as from `message` event.
+and `rinfo` properties as from `message` event or resolves to `undefined` when
+socket is already closed.
 
 ```js
 const packet = await socket.recv()
-console.log(`Received message: ${packet.msg.toString()}`)
-console.log(`Received ${packet.rinfo.size} bytes`)
+if (packet) {
+  console.log(`Received message: ${packet.msg.toString()}`)
+  console.log(`Received ${packet.rinfo.size} bytes`)
+}
 ```
 
-Method `close` returns `Promise` object which resolves to number of bytes sent
-when `close` event is emitted.
+### close
+
+Method `close` returns `Promise` object which resolves when `close` event is
+emitted.
 
 ```js
 await socket.close()
 console.log("Socket is closed")
+```
+
+### iterate
+
+Method `iterate` and the socket object return asynchronous iterator which will
+call `recv` method until socket is closed.
+
+```js
+for await (const packet of socket) {
+  console.info(packet.msg.toString())
+  // Close socket if Ctrl-D is in the message
+  if (packet.msg.indexOf(4) !== -1) {
+    await socket.close()
+  }
+}
+```
+
+### destroy
+
+Method `destroy` cleans internal listeners.
+
+```js
+socket.destroy()
 ```
 
 ## License

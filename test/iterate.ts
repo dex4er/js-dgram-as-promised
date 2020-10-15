@@ -3,15 +3,20 @@ import chai, {expect} from "chai"
 import chaiAsPromised from "chai-as-promised"
 chai.use(chaiAsPromised)
 
+import dirtyChai from "dirty-chai"
+chai.use(dirtyChai)
+
 import dgramAsPromised, {IncomingPacket, SocketAsPromised} from "../src/dgram-as-promised"
 
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import mockDgram from "./lib/mock-dgram"
 
-Feature("Test dgram-as-promised module for recv method", () => {
-  Scenario("Receive datagram", () => {
-    let packet: IncomingPacket | undefined
+Feature("Test dgram-as-promised module for iterate method", () => {
+  Scenario("Iterate on datagrams", () => {
+    let iterator: AsyncIterableIterator<IncomingPacket>
+    let packet: IncomingPacket
+    let result: IteratorResult<IncomingPacket>
     let socket: SocketAsPromised
 
     Given("socket", () => {
@@ -22,8 +27,12 @@ Feature("Test dgram-as-promised module for recv method", () => {
       await expect(socket.bind({port: 0})).eventually.to.have.property("address")
     })
 
-    And("waits for packet", () => {
-      socket.recv().then(arg => (packet = arg))
+    And("I get an iterator", () => {
+      iterator = socket.iterate()
+    })
+
+    And("I wait for next result from iterator", () => {
+      iterator.next().then(arg => (result = arg))
     })
 
     And("message event is emitted", async () => {
@@ -35,42 +44,35 @@ Feature("Test dgram-as-promised module for recv method", () => {
       })
     })
 
-    Then("packet is received", async () => {
+    Then("iterator is not done", () => {
+      expect(result.done).to.be.false()
+    })
+
+    And("iterator returns packet", () => {
+      packet = result.value
+      expect(packet).to.be.ok()
       expect(packet).to.have.property("msg")
       expect(packet).to.have.property("rinfo")
     })
 
     And("message is correct", async () => {
-      expect(packet!.msg.toString()).to.equal("ABCDEFGH")
+      expect(packet.msg.toString()).to.equal("ABCDEFGH")
     })
 
     And("rinfo is correct", async () => {
-      expect(packet!.rinfo.size).to.equal(8)
-    })
-  })
-
-  Scenario("Can't receive datagram with rejection", () => {
-    let error: Error
-    let socket: SocketAsPromised
-
-    Given("socket", () => {
-      socket = dgramAsPromised.createSocket({type: "udp4", dgram: mockDgram as any})
+      expect(packet.rinfo.size).to.equal(8)
     })
 
-    When("socket is bound", async () => {
-      await expect(socket.bind({port: 0})).eventually.to.have.property("address")
+    When("I wait for next result from iterator", () => {
+      iterator.next().then(arg => (result = arg))
     })
 
-    And("waits for packet", () => {
-      socket.recv().catch(err => (error = err))
+    And("socket is closed", async () => {
+      await socket.close()
     })
 
-    And("message event is emitted", async () => {
-      socket.socket.emit("error", new Error("rejected"))
-    })
-
-    Then("can't be received", () => {
-      expect(error).to.be.an("Error")
+    Then("iterator is done", () => {
+      expect(result.done).to.be.true()
     })
   })
 })

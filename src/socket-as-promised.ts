@@ -13,10 +13,12 @@ export interface SocketAsPromisedOptions extends SocketOptions {
   dgram?: typeof dgram
 }
 
-export class SocketAsPromised {
+export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
+  _closed?: boolean
   _errored?: Error
 
   constructor(public readonly socket: Socket) {
+    socket.on("close", this.closeHandler)
     socket.on("error", this.errorHandler)
   }
 
@@ -125,7 +127,7 @@ export class SocketAsPromised {
     })
   }
 
-  recv(): Promise<IncomingPacket> {
+  recv(): Promise<IncomingPacket | undefined> {
     const socket = this.socket
 
     return new Promise((resolve, reject) => {
@@ -133,6 +135,16 @@ export class SocketAsPromised {
         const err = this._errored
         this._errored = undefined
         return reject(err)
+      }
+
+      if (this._closed) {
+        this._closed = undefined
+        return resolve(undefined)
+      }
+
+      const closeHandler = () => {
+        removeListeners()
+        resolve(undefined)
       }
 
       const errorHandler = (err: Error) => {
@@ -146,10 +158,12 @@ export class SocketAsPromised {
       }
 
       const removeListeners = () => {
+        socket.removeListener("close", closeHandler)
         socket.removeListener("error", errorHandler)
         socket.removeListener("message", messageHandler)
       }
 
+      socket.on("close", closeHandler)
       socket.on("error", errorHandler)
       socket.on("message", messageHandler)
     })
@@ -207,6 +221,48 @@ export class SocketAsPromised {
 
   getSendBufferSize(): number {
     return this.getSendBufferSize()
+  }
+
+  iterate(): AsyncIterableIterator<IncomingPacket> {
+    const socketAsPromised = this
+
+    let wasEof = false
+
+    return {
+      [Symbol.asyncIterator](): AsyncIterableIterator<IncomingPacket> {
+        return this
+      },
+
+      async next(): Promise<IteratorResult<IncomingPacket>> {
+        if (wasEof) {
+          return {value: "", done: true}
+        } else {
+          const value = await socketAsPromised.recv()
+          if (value === undefined) {
+            wasEof = true
+            return {value: "", done: true}
+          } else {
+            return {value, done: false}
+          }
+        }
+      },
+    }
+  }
+
+  [Symbol.asyncIterator](): AsyncIterableIterator<IncomingPacket> {
+    return this.iterate()
+  }
+
+  destroy(): void {
+    const socket = this.socket
+    if (socket) {
+      socket.removeListener("close", this.closeHandler)
+      socket.removeListener("error", this.errorHandler)
+    }
+  }
+
+  private readonly closeHandler = (): void => {
+    this._closed = true
   }
 
   private readonly errorHandler = (err: Error): void => {

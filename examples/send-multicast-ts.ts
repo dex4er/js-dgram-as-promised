@@ -22,6 +22,8 @@ async function main(): Promise<void> {
 
   await socket.close()
   console.info("Socket is closed")
+
+  socket.destroy()
 }
 
 main().catch(console.error)

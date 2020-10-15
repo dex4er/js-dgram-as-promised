@@ -24,6 +24,8 @@ async function main() {
 
   await socket.close()
   console.info("Socket is closed")
+
+  socket.destroy()
 }
 
 main().catch(console.error)

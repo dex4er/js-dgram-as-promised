@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.1.0 2020-10-15
+
+- `recv` returns `undefined` when socket is closed.
+- New `iterate` method returns asynchrounous iterator.
+- New `destroy` method cleans internal listeners.
+
 ## v4.0.0 2020-10-15
 
 - `bind` method rejects on error. Fixes #42.

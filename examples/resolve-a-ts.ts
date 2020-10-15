@@ -27,12 +27,15 @@ async function main(): Promise<void> {
   await socket.send(buf, 0, buf.length, 53, server)
 
   const packet = await socket.recv()
-  console.info({
-    rinfo: packet.rinfo,
-    msg: dnsPacket.decode(packet.msg),
-  })
+  if (packet) {
+    console.info({
+      rinfo: packet.rinfo,
+      msg: dnsPacket.decode(packet.msg),
+    })
+    await socket.close()
+  }
 
-  await socket.close()
+  socket.destroy()
 }
 
 main().catch(console.error)
