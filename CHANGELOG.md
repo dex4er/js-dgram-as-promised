@@ -1,6 +1,6 @@
 # Changelog
 
-## v4.0.0 2020-10-13
+## v4.0.0 2020-10-15
 
 - `bind` method rejects on error. Fixes #42.
 - `recv` method resolves on `message` event. Fixes #39.
