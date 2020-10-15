@@ -1,6 +1,6 @@
 # Changelog
 
-## v4.1.0 2020-10-15
+## v5.0.0 2020-10-15
 
 - `recv` returns `undefined` when socket is closed.
 - New `iterate` method returns asynchrounous iterator.
