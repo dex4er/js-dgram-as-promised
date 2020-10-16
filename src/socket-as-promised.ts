@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import dgram from "dgram"
+import * as dgram from "dgram"
 import type {BindOptions, RemoteInfo, Socket, SocketOptions} from "dgram"
 import type {AddressInfo} from "net"
 

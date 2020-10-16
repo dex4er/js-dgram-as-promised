@@ -1,6 +1,6 @@
 /// <reference types="node" />
 
-import dgram from "dgram"
+import * as dgram from "dgram"
 import type {RemoteInfo, SocketType} from "dgram"
 import {SocketAsPromised} from "./socket-as-promised"
 import type {SocketAsPromisedOptions} from "./socket-as-promised"

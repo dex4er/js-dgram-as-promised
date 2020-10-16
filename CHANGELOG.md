@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.1 2020-10-16
+
+- Library works without enabled `"esModuleInterop"` options. Fixes #38.
+
 ## v5.0.0 2020-10-16
 
 - `recv` returns `undefined` when socket is closed.
@@ -13,7 +17,7 @@
 - Requires Node >= 10.
 - Uses eslint instead of tslint.
 
-## v3.0.2 2019-10-08
+## v3.0.3 2019-10-08
 
 - Use `mocha-steps` and `cross-env` for testing.
 
