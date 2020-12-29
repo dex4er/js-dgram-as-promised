@@ -169,7 +169,7 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
     })
   }
 
-  address(): AddressInfo | string {
+  address(): AddressInfo {
     return this.socket.address()
   }
 
