@@ -19,7 +19,7 @@
   },
   "homepage": "http://github.com/dex4er/js-dgram-as-promised",
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=v14.18.1"
   },
   "dependencies": {
     "tslib": "^2.0.3"
