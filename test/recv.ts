@@ -49,6 +49,35 @@ Feature("Test dgram-as-promised module for recv method", () => {
     })
   })
 
+  Scenario("Timeout for recv", () => {
+    let error: Error
+    let socket: SocketAsPromised
+
+    Given("socket", () => {
+      socket = dgramAsPromised.createSocket({type: "udp4", dgram: mockDgram as any})
+    })
+
+    When("socket is bound", async () => {
+      await expect(socket.bind({port: 0})).eventually.to.have.property("address")
+    })
+
+    And("timeout is set", () => {
+      socket.setTimeout(500)
+    })
+
+    And("waits for packet", async () => {
+      await socket.recv().catch(err => (error = err))
+    })
+
+    Then("timeout occured", async () => {
+      expect(error).to.be.an("Error")
+    })
+
+    And("socket is not closed", async () => {
+      expect(socket.close()).eventually.be.undefined
+    })
+  })
+
   Scenario("Can't receive datagram with rejection", () => {
     let error: Error
     let socket: SocketAsPromised

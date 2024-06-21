@@ -81,6 +81,8 @@ Method `recv` returns `Promise` object which resolves to the object with `msg`
 and `rinfo` properties as from `message` event or resolves to `undefined` when
 the socket is already closed.
 
+It throws an error if a timeout occurs and it was set by `setTimeout` method.
+
 ```js
 const packet = await socket.recv()
 if (packet) {
@@ -92,16 +94,37 @@ if (packet) {
 ### close
 
 Method `close` returns `Promise` object which resolves when `close` event is
-emitted.
+emitted or the socket is already closed.
 
 ```js
 await socket.close()
 console.log("Socket is closed")
 ```
 
+### setTimeout
+
+```js
+socket = socket.setTimeout(ms)
+```
+
+Set the timeout used by `recv` method for the idle socket and after this
+timeout, the `recv` method will reject a Promise with a timeout error.
+
+After the error, the socket is not closed and calling another `recv` method
+will reset the timeout.
+
+The method returns this object.
+
+_Example:_
+
+```js
+socket.setTimeout(1000)
+await socket.recv()
+```
+
 ### iterate
 
-Method `iterate` and the socket object return an asynchronous iterator which
+Method `iterate` and the socket object returns an asynchronous iterator which
 will call `recv` method until the socket is closed.
 
 ```js

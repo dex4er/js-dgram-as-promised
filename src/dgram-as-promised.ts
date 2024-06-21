@@ -3,6 +3,7 @@
 import * as dgram from "node:dgram"
 import type {RemoteInfo, SocketType} from "node:dgram"
 import {SocketAsPromised} from "./socket-as-promised.js"
+export {TimeoutError} from "./timeout-error.js"
 import type {SocketAsPromisedOptions} from "./socket-as-promised.js"
 
 export type {BindOptions, RemoteInfo, Socket, SocketOptions, SocketType} from "node:dgram"

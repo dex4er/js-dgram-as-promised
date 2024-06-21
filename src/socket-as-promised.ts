@@ -4,6 +4,8 @@ import * as dgram from "node:dgram"
 import type {BindOptions, RemoteInfo, Socket, SocketOptions} from "node:dgram"
 import type {AddressInfo} from "node:net"
 
+import {TimeoutError} from "./timeout-error.js"
+
 export interface IncomingPacket {
   msg: Buffer
   rinfo: RemoteInfo
@@ -14,12 +16,18 @@ export interface SocketAsPromisedOptions extends SocketOptions {
 }
 
 export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
-  _closed?: boolean
-  _errored?: Error
+  private _closed?: boolean
+  private _errored?: Error
+
+  private _timeout = 0
 
   constructor(public readonly socket: Socket) {
     socket.on("close", this.closeHandler)
     socket.on("error", this.errorHandler)
+  }
+
+  get timeout(): number {
+    return this._timeout
   }
 
   bind(port?: number, address?: string): Promise<AddressInfo>
@@ -70,14 +78,9 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
 
   close(): Promise<void> {
     return new Promise((resolve, reject) => {
-      if (this._errored) {
-        const err = this._errored
-        this._errored = undefined
-        return reject(err)
-      }
-
       try {
         this.socket.once("close", () => {
+          this._closed = true
           resolve()
         })
         this.socket.close()
@@ -131,6 +134,8 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
   recv(): Promise<IncomingPacket | undefined> {
     const socket = this.socket
 
+    let timeoutId: NodeJS.Timeout | undefined
+
     return new Promise((resolve, reject) => {
       if (this._errored) {
         const err = this._errored
@@ -141,6 +146,12 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
       if (this._closed) {
         this._closed = undefined
         return resolve(undefined)
+      }
+
+      if (this.timeout) {
+        timeoutId = setTimeout(() => {
+          socket.emit("error", new TimeoutError())
+        }, this.timeout)
       }
 
       const closeHandler = () => {
@@ -162,6 +173,10 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
         socket.removeListener("close", closeHandler)
         socket.removeListener("error", errorHandler)
         socket.removeListener("message", messageHandler)
+        if (timeoutId) {
+          clearTimeout(timeoutId)
+          timeoutId = undefined
+        }
       }
 
       socket.on("close", closeHandler)
@@ -232,6 +247,11 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
     return this.getSendBufferSize()
   }
 
+  setTimeout(timeout: number): this {
+    this._timeout = timeout
+    return this
+  }
+
   iterate(): AsyncIterableIterator<IncomingPacket> {
     const socketAsPromised = this
 
@@ -264,6 +284,7 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
 
   destroy(): this {
     const socket = this.socket
+
     if (socket) {
       socket.removeListener("close", this.closeHandler)
       socket.removeListener("error", this.errorHandler)
