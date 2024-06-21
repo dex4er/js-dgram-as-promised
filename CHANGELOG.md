@@ -7,6 +7,8 @@
 - `addMembership`, `setBroadcast`, `setTTL`, `setMulticastTTL`,
   `setMulticastInterface`, `setMulticastLoopback`, `dropMembership`,
   `setRecvBufferSize`, `setSendBufferSize` and `destroy` return `this`.
+- `address` method doesn't return `string` anymore; closes:
+  dex4er/js-dgram-as-promised#51
 
 ## v5.0.1 2020-10-16
 

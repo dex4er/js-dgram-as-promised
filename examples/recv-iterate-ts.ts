@@ -5,9 +5,9 @@ import {DgramAsPromised} from "../src/dgram-as-promised.js"
 const port = Number(process.argv[2]) || 0
 
 async function main(): Promise<void> {
-  const socket = DgramAsPromised.createSocket("udp4")
+  const socket = DgramAsPromised.createSocket("udp6")
 
-  const address = await socket.bind({port})
+  const address = await socket.bind({port, address: "::1"})
   console.info(`Socket is listening on ${address.address}:${address.port}`)
 
   for await (const packet of socket) {
