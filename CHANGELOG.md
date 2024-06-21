@@ -1,5 +1,13 @@
 # Changelog
 
+## v6.0.0 2024-06-21
+
+- Converted to ESM module.
+- Requires Node >= 16.
+- `addMembership`, `setBroadcast`, `setTTL`, `setMulticastTTL`,
+  `setMulticastInterface`, `setMulticastLoopback`, `dropMembership`,
+  `setRecvBufferSize`, `setSendBufferSize` and `destroy` return `this`.
+
 ## v5.0.1 2020-10-16
 
 - Library works without enabled `"esModuleInterop"` options. Fixes #38.

@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import * as dgram from "dgram"
-import type {BindOptions, RemoteInfo, Socket, SocketOptions} from "dgram"
-import type {AddressInfo} from "net"
+import * as dgram from "node:dgram"
+import type {BindOptions, RemoteInfo, Socket, SocketOptions} from "node:dgram"
+import type {AddressInfo} from "node:net"
 
 export interface IncomingPacket {
   msg: Buffer
@@ -63,8 +63,9 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
     })
   }
 
-  addMembership(multicastAddress: string, multicastInterface?: string): void {
-    return this.socket.addMembership(multicastAddress, multicastInterface)
+  addMembership(multicastAddress: string, multicastInterface?: string): this {
+    this.socket.addMembership(multicastAddress, multicastInterface)
+    return this
   }
 
   close(): Promise<void> {
@@ -173,28 +174,34 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
     return this.socket.address()
   }
 
-  setBroadcast(flag: boolean): void {
+  setBroadcast(flag: boolean): this {
     this.socket.setBroadcast(flag)
+    return this
   }
 
-  setTTL(ttl: number): void {
-    return this.socket.setTTL(ttl)
+  setTTL(ttl: number): this {
+    this.socket.setTTL(ttl)
+    return this
   }
 
-  setMulticastTTL(ttl: number): void {
+  setMulticastTTL(ttl: number): this {
     this.socket.setMulticastTTL(ttl)
+    return this
   }
 
-  setMulticastInterface(multicastInterface: string): void {
+  setMulticastInterface(multicastInterface: string): this {
     this.socket.setMulticastInterface(multicastInterface)
+    return this
   }
 
-  setMulticastLoopback(flag: boolean): void {
+  setMulticastLoopback(flag: boolean): this {
     this.socket.setMulticastLoopback(flag)
+    return this
   }
 
-  dropMembership(multicastAddress: string, multicastInterface?: string): void {
+  dropMembership(multicastAddress: string, multicastInterface?: string): this {
     this.socket.dropMembership(multicastAddress, multicastInterface)
+    return this
   }
 
   ref(): this {
@@ -207,12 +214,14 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
     return this
   }
 
-  setRecvBufferSize(size: number): void {
+  setRecvBufferSize(size: number): this {
     this.socket.setRecvBufferSize(size)
+    return this
   }
 
-  setSendBufferSize(size: number): void {
+  setSendBufferSize(size: number): this {
     this.socket.setSendBufferSize(size)
+    return this
   }
 
   getRecvBufferSize(): number {
@@ -253,12 +262,14 @@ export class SocketAsPromised implements AsyncIterable<IncomingPacket> {
     return this.iterate()
   }
 
-  destroy(): void {
+  destroy(): this {
     const socket = this.socket
     if (socket) {
       socket.removeListener("close", this.closeHandler)
       socket.removeListener("error", this.errorHandler)
     }
+
+    return this
   }
 
   private readonly closeHandler = (): void => {

@@ -1,6 +1,6 @@
-"use strict"
+#!/usr/bin/env node
 
-const {DgramAsPromised} = require("../lib/dgram-as-promised")
+import DgramAsPromised from "../lib/dgram-as-promised.js"
 
 const MEMBERSHIP = "224.0.0.1"
 const PORT = 41234

@@ -1,13 +1,19 @@
-import * as dnsPacket from "dns-packet-typescript"
+#!/usr/bin/env -S node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm
 
-import {DgramAsPromised} from "../src/dgram-as-promised"
+import * as dnsPacket from "dns-packet"
+import * as util from "node:util"
+
+import {DgramAsPromised} from "../src/dgram-as-promised.js"
 
 function getRandomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 const name = process.argv[2] || "google.com"
-const server = process.argv[3] || "8.8.8.8"
+const type = (process.argv[3] as dnsPacket.RecordType) || "A"
+const server = process.argv[4] || "8.8.8.8"
+
+util.inspect.defaultOptions.depth = Infinity
 
 async function main(): Promise<void> {
   const socket = DgramAsPromised.createSocket("udp4")
@@ -18,7 +24,7 @@ async function main(): Promise<void> {
     flags: dnsPacket.RECURSION_DESIRED,
     questions: [
       {
-        type: "A",
+        type,
         name,
       },
     ],
@@ -28,9 +34,10 @@ async function main(): Promise<void> {
 
   const packet = await socket.recv()
   if (packet) {
+    const msg = dnsPacket.decode(packet.msg)
     console.info({
       rinfo: packet.rinfo,
-      msg: dnsPacket.decode(packet.msg),
+      msg,
     })
     await socket.close()
   }

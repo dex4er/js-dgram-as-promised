@@ -1,4 +1,6 @@
-import DgramAsPromised from "../src/dgram-as-promised"
+#!/usr/bin/env -S node --experimental-specifier-resolution=node --no-warnings --loader ts-node/esm
+
+import DgramAsPromised from "../src/dgram-as-promised.js"
 
 const MEMBERSHIP = "224.0.0.1"
 const PORT = 41234

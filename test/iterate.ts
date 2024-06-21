@@ -1,16 +1,13 @@
-import chai, {expect} from "chai"
+import {expect, use as chaiUse} from "chai"
 
 import chaiAsPromised from "chai-as-promised"
-chai.use(chaiAsPromised)
+chaiUse(chaiAsPromised)
 
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import dgramAsPromised, {IncomingPacket, SocketAsPromised} from "../src/dgram-as-promised.js"
 
-import dgramAsPromised, {IncomingPacket, SocketAsPromised} from "../src/dgram-as-promised"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
-import mockDgram from "./lib/mock-dgram"
+import * as mockDgram from "./lib/mock-dgram.js"
 
 Feature("Test dgram-as-promised module for iterate method", () => {
   Scenario("Iterate on datagrams", () => {
@@ -45,12 +42,12 @@ Feature("Test dgram-as-promised module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns packet", () => {
       packet = result.value
-      expect(packet).to.be.ok()
+      expect(packet).to.be.ok
       expect(packet).to.have.property("msg")
       expect(packet).to.have.property("rinfo")
     })
@@ -72,7 +69,7 @@ Feature("Test dgram-as-promised module for iterate method", () => {
     })
 
     Then("iterator is done", () => {
-      expect(result.done).to.be.true()
+      expect(result.done).to.be.true
     })
   })
 })

@@ -1,13 +1,13 @@
-import chai, {expect} from "chai"
+import {expect, use as chaiUse} from "chai"
 
 import chaiAsPromised from "chai-as-promised"
-chai.use(chaiAsPromised)
+chaiUse(chaiAsPromised)
 
-import dgramAsPromised, {IncomingPacket, SocketAsPromised} from "../src/dgram-as-promised"
+import dgramAsPromised, {IncomingPacket, SocketAsPromised} from "../src/dgram-as-promised.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import mockDgram from "./lib/mock-dgram"
+import * as mockDgram from "./lib/mock-dgram.js"
 
 Feature("Test dgram-as-promised module for recv method", () => {
   Scenario("Receive datagram", () => {

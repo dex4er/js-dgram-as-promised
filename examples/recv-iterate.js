@@ -1,4 +1,6 @@
-const {DgramAsPromised} = require("../lib/dgram-as-promised")
+#!/usr/bin/env node
+
+import {DgramAsPromised} from "../lib/dgram-as-promised.js"
 
 const port = Number(process.argv[2]) || 0
 
@@ -9,7 +11,7 @@ async function main() {
   console.info(`Socket is listening on ${address.address}:${address.port}`)
 
   for await (const packet of socket) {
-    console.info(packet)
+    console.log(packet)
     if (packet.msg.indexOf(4) !== -1) {
       await socket.close()
     }

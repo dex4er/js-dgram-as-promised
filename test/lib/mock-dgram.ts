@@ -1,8 +1,8 @@
-import {BindOptions, RemoteInfo, SocketOptions} from "dgram"
-import {EventEmitter} from "events"
-import {AddressInfo} from "net"
+import {BindOptions, RemoteInfo, SocketOptions} from "node:dgram"
+import {EventEmitter} from "node:events"
+import {AddressInfo} from "node:net"
 
-class Socket extends EventEmitter {
+export class Socket extends EventEmitter {
   _closed = false
 
   constructor() {
@@ -80,13 +80,6 @@ class Socket extends EventEmitter {
   }
 }
 
-function createSocket(_options: SocketOptions, _callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket {
+export function createSocket(_options: SocketOptions, _callback?: (msg: Buffer, rinfo: RemoteInfo) => void): Socket {
   return new Socket()
 }
-
-const mockDgram = {
-  Socket,
-  createSocket,
-}
-
-export = mockDgram
