@@ -32,17 +32,19 @@ async function main() {
 
   await socket.send(buf, 0, buf.length, 53, server)
 
-  const packet = await socket.recv()
-  if (packet) {
-    const msg = dnsPacket.decode(packet.msg)
-    console.info({
-      rinfo: packet.rinfo,
-      msg,
-    })
+  try {
+    const packet = await socket.setTimeout(5000).recv()
+    if (packet) {
+      const msg = dnsPacket.decode(packet.msg)
+      console.info({
+        rinfo: packet.rinfo,
+        msg,
+      })
+    }
+  } finally {
     await socket.close()
+    socket.destroy()
   }
-
-  socket.destroy()
 }
 
 main().catch(console.error)
